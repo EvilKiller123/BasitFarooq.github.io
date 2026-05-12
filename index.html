@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Abdul Basit Farooq — Game Developer</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="hero-styles.css"/>
 <style>
 :root{
   --bg:#04080F;--bg2:#070E1A;--card:#0D1E38;
@@ -208,23 +209,8 @@ footer{position:relative;z-index:1;padding:2rem 5%;border-top:1px solid var(--bo
   <a href="mailto:basit123farooq@gmail.com" class="nav-cta">Hire Me</a>
 </nav>
 
-<section id="hero">
-  <div>
-    <div class="hero-tag">// Senior Game Developer · Karachi, Pakistan</div>
-    <h1 class="hero-name">ABDUL<br/><span class="cyan">BASIT</span></h1>
-    <div class="hero-title">Interactive Game Developer</div>
-    <p class="hero-desc">8+ years building scalable multiplayer systems, AI-powered interactive experiences, and high-performance Unity games — from real-time networking to cinematic AI booths.</p>
-    <div class="hero-stats">
-      <div><div class="stat-num">8+</div><div class="stat-label">Years Exp.</div></div>
-      <div><div class="stat-num">14+</div><div class="stat-label">Projects</div></div>
-      <div><div class="stat-num">10+</div><div class="stat-label">Launches</div></div>
-    </div>
-    <div class="hero-btns">
-      <a href="#portfolio" class="btn-primary">View My Work</a>
-      <a href="#contact" class="btn-outline">Get In Touch</a>
-    </div>
-  </div>
-  <div class="hero-scroll"><div class="scroll-line"></div><span>Scroll</span></div>
+<section id="hero" class="hero-react" style="padding:0;min-height:0;">
+  <div id="hero-mount" class="hero-mount"></div>
 </section>
 
 <section id="about">
@@ -328,13 +314,11 @@ footer{position:relative;z-index:1;padding:2rem 5%;border-top:1px solid var(--bo
     <button class="gfilter-tab" data-gfilter="scene">Cinematic</button>
   </div>
   <div class="gallery-grid fade-in" id="gallery-grid">
-    <div class="gallery-item" data-gcat="sports" onclick="openLightbox(this)"><img src="ai-gallery/3988.jpg" alt="Football Champion" onerror="this.closest('.gallery-item').remove()"/><div class="gallery-item-overlay"><div class="gallery-item-label">Sports</div><div class="gallery-item-title">Football Champion</div></div></div>
     <div class="gallery-item" data-gcat="editorial" onclick="openLightbox(this)"><img src="ai-gallery/722.jpg" alt="Arabic News Cover" onerror="this.closest('.gallery-item').remove()"/><div class="gallery-item-overlay"><div class="gallery-item-label">Editorial</div><div class="gallery-item-title">Arabic News Cover</div></div></div>
     <div class="gallery-item" data-gcat="editorial" onclick="openLightbox(this)"><img src="ai-gallery/977.jpg" alt="The Daily Chronicle" onerror="this.closest('.gallery-item').remove()"/><div class="gallery-item-overlay"><div class="gallery-item-label">Editorial</div><div class="gallery-item-title">The Daily Chronicle</div></div></div>
     <div class="gallery-item" data-gcat="art" onclick="openLightbox(this)"><img src="ai-gallery/1154.jpg" alt="Arabic Caricature" onerror="this.closest('.gallery-item').remove()"/><div class="gallery-item-overlay"><div class="gallery-item-label">Illustration</div><div class="gallery-item-title">Arabic Caricature</div></div></div>
     <div class="gallery-item" data-gcat="sports" onclick="openLightbox(this)"><img src="ai-gallery/1729.jpg" alt="Street Football" onerror="this.closest('.gallery-item').remove()"/><div class="gallery-item-overlay"><div class="gallery-item-label">Sports</div><div class="gallery-item-title">Street Football</div></div></div>
     <div class="gallery-item" data-gcat="editorial" onclick="openLightbox(this)"><img src="ai-gallery/2120.jpg" alt="Global AI Leader" onerror="this.closest('.gallery-item').remove()"/><div class="gallery-item-overlay"><div class="gallery-item-label">Editorial</div><div class="gallery-item-title">Global AI Leader</div></div></div>
-    <div class="gallery-item" data-gcat="editorial" onclick="openLightbox(this)"><img src="ai-gallery/2708.jpg" alt="Global Times Sports" onerror="this.closest('.gallery-item').remove()"/><div class="gallery-item-overlay"><div class="gallery-item-label">Editorial</div><div class="gallery-item-title">Global Times Sports</div></div></div>
     <div class="gallery-item" data-gcat="sports" onclick="openLightbox(this)"><img src="ai-gallery/2853.jpg" alt="Stadium Action" onerror="this.closest('.gallery-item').remove()"/><div class="gallery-item-overlay"><div class="gallery-item-label">Sports</div><div class="gallery-item-title">Stadium Action</div></div></div>
     <div class="gallery-item" data-gcat="scene" onclick="openLightbox(this)"><img src="ai-gallery/790.jpg" alt="Music Producer" onerror="this.closest('.gallery-item').remove()"/><div class="gallery-item-overlay"><div class="gallery-item-label">Cinematic</div><div class="gallery-item-title">Music Producer</div></div></div>
     <div class="gallery-item" data-gcat="scene" onclick="openLightbox(this)"><img src="ai-gallery/820.jpg" alt="Pitchside Coach" onerror="this.closest('.gallery-item').remove()"/><div class="gallery-item-overlay"><div class="gallery-item-label">Cinematic</div><div class="gallery-item-title">Pitchside Coach</div></div></div>
@@ -344,8 +328,7 @@ footer{position:relative;z-index:1;padding:2rem 5%;border-top:1px solid var(--bo
     <div class="gallery-item" data-gcat="scene" onclick="openLightbox(this)"><img src="ai-gallery/698.jpg" alt="Guitar and Synths" onerror="this.closest('.gallery-item').remove()"/><div class="gallery-item-overlay"><div class="gallery-item-label">Cinematic</div><div class="gallery-item-title">Guitar and Synths</div></div></div>
     <div class="gallery-item" data-gcat="art" onclick="openLightbox(this)"><img src="ai-gallery/CapturedUI_20251229_185430.png" alt="Saudi Heritage Poster" onerror="this.closest('.gallery-item').remove()"/><div class="gallery-item-overlay"><div class="gallery-item-label">Illustration</div><div class="gallery-item-title">Saudi Heritage Poster</div></div></div>
     <div class="gallery-item" data-gcat="art" onclick="openLightbox(this)"><img src="ai-gallery/CapturedUI_20260111_153241.png" alt="Pencil Portrait" onerror="this.closest('.gallery-item').remove()"/><div class="gallery-item-overlay"><div class="gallery-item-label">Illustration</div><div class="gallery-item-title">Pencil Sketch Portrait</div></div></div>
-    <div class="gallery-item" data-gcat="art" onclick="openLightbox(this)"><img src="ai-gallery/CapturedUI_20260111_175022.png" alt="Waving Caricature" onerror="this.closest('.gallery-item').remove()"/><div class="gallery-item-overlay"><div class="gallery-item-label">Illustration</div><div class="gallery-item-title">Waving Caricature</div></div></div>
-  </div>
+</div>
 </section>
 
 <div class="ai-lightbox" id="ai-lightbox">
@@ -502,6 +485,56 @@ function closeModalBtn(){const v=document.getElementById('modal-video');v.pause(
 
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeModalBtn();closeLightbox();}if(e.key==='ArrowLeft')lbPrev();if(e.key==='ArrowRight')lbNext();});
 addEventListener('scroll',()=>{document.querySelector('nav').style.boxShadow=scrollY>20?'0 2px 30px rgba(0,0,0,.6)':'none';});
+</script>
+
+<!-- ─── React hero mount ─── -->
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script type="text/babel" src="hero-variants.jsx"></script>
+<script type="text/babel">
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "variant": "tape",
+  "palette": [
+    "#FF2E97",
+    "#C6FF00"
+  ]
+}/*EDITMODE-END*/;
+const VARIANT_OPTIONS = [
+  { value: "tape",      label: "01 \u00b7 Vertical Tape" },
+  { value: "portal",    label: "02 \u00b7 Type Portal" },
+  { value: "lens",      label: "03 \u00b7 Circular Lens" },
+  { value: "brutalist", label: "04 \u00b7 Brutalist Grid" },
+  { value: "glitch",    label: "05 \u00b7 Glitch Stack" },
+];
+const PALETTE_OPTIONS = [
+  ["#00D4FF", "#FF6B35"], ["#FF2E97", "#C6FF00"],
+  ["#FFB300", "#9D4EDD"], ["#A8F0FF", "#FF1744"],
+];
+function HeroApp() {
+  const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
+  const V = window.HeroVariants[t.variant] || window.HeroVariants.tape;
+  React.useEffect(() => {
+    const [c, o] = t.palette || PALETTE_OPTIONS[0];
+    document.documentElement.style.setProperty('--cyan', c);
+    document.documentElement.style.setProperty('--orange', o);
+  }, [t.palette]);
+  return (
+    <>
+      <V/>
+      <TweaksPanel title="Tweaks">
+        <TweakSection label="Hero Variant">
+          <TweakSelect value={t.variant} options={VARIANT_OPTIONS} onChange={v => setTweak('variant', v)}/>
+        </TweakSection>
+        <TweakSection label="Accent Palette">
+          <TweakColor value={t.palette} options={PALETTE_OPTIONS} onChange={v => setTweak('palette', v)}/>
+        </TweakSection>
+      </TweaksPanel>
+    </>
+  );
+}
+ReactDOM.createRoot(document.getElementById('hero-mount')).render(<HeroApp/>);
 </script>
 </body>
 </html>

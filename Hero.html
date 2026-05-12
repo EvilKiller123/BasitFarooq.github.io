@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Abdul Basit Farooq — Hero</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="hero-styles.css"/>
+</head>
+<body class="hero-only">
+<div class="brand"><span class="dot"></span>BASIT / DEV</div>
+<nav class="brand-right">
+  <a href="#work">WORK</a>
+  <a href="#about">ABOUT</a>
+  <a href="#contact">CONTACT</a>
+  <a href="#" style="color:var(--cyan);">↗ RESUME</a>
+</nav>
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script type="text/babel" src="hero-variants.jsx"></script>
+
+<script type="text/babel">
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "variant": "tape",
+  "palette": [
+    "#FF2E97",
+    "#C6FF00"
+  ]
+}/*EDITMODE-END*/;
+
+const VARIANT_OPTIONS = [
+  { value: "tape",      label: "01 · Vertical Tape" },
+  { value: "portal",    label: "02 · Type Portal" },
+  { value: "lens",      label: "03 · Circular Lens" },
+  { value: "brutalist", label: "04 · Brutalist Grid" },
+  { value: "glitch",    label: "05 · Glitch Stack" },
+];
+
+const PALETTE_OPTIONS = [
+  ["#00D4FF", "#FF6B35"],  // cyan / orange (default)
+  ["#FF2E97", "#C6FF00"],  // magenta / lime
+  ["#FFB300", "#9D4EDD"],  // amber / violet
+  ["#A8F0FF", "#FF1744"],  // ice / blood
+];
+
+function App() {
+  const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
+  const Variant = window.HeroVariants[t.variant] || window.HeroVariants.tape;
+
+  React.useEffect(() => {
+    const [c, o] = t.palette || PALETTE_OPTIONS[0];
+    document.documentElement.style.setProperty('--cyan', c);
+    document.documentElement.style.setProperty('--orange', o);
+    document.documentElement.style.setProperty('--border', c + '26');
+    document.documentElement.style.setProperty('--cyan-dim', c + '1A');
+    document.documentElement.style.setProperty('--orange-dim', o + '1A');
+  }, [t.palette]);
+
+  return (
+    <React.Fragment>
+      <Variant/>
+      <TweaksPanel title="Tweaks">
+        <TweakSection label="Hero Variant">
+          <TweakSelect
+            value={t.variant}
+            options={VARIANT_OPTIONS}
+            onChange={v => setTweak('variant', v)}
+          />
+        </TweakSection>
+        <TweakSection label="Accent Palette">
+          <TweakColor
+            value={t.palette}
+            options={PALETTE_OPTIONS}
+            onChange={v => setTweak('palette', v)}
+          />
+        </TweakSection>
+      </TweaksPanel>
+    </React.Fragment>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script>
+</body>
+</html>
