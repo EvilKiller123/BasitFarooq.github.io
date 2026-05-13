@@ -86,6 +86,13 @@ section{position:relative;z-index:1;padding:6rem 5%;}
 .game-card:hover .card-overlay{opacity:1;}
 .video-wrap{position:relative;width:100%;aspect-ratio:16/9;background:#000;overflow:hidden;}
 .video-wrap video{width:100%;height:100%;object-fit:cover;display:block;}
+.video-loader{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:radial-gradient(circle at center,rgba(4,8,15,0.92),rgba(4,8,15,1) 70%);opacity:0;transition:opacity .3s ease;pointer-events:none;z-index:2;}
+.video-loader.is-loading{opacity:1;}
+.video-loader svg{width:42px;height:42px;animation:vl-spin 1.4s linear infinite;filter:drop-shadow(0 0 12px var(--cyan));}
+.video-loader .vl-track{stroke:rgba(0,212,255,0.15);}
+.video-loader .vl-arc{stroke:var(--cyan);stroke-dasharray:90 200;}
+.video-loader-label{font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:2px;text-transform:uppercase;color:var(--cyan);opacity:0.8;}
+@keyframes vl-spin{to{transform:rotate(360deg);}}
 .card-overlay{position:absolute;inset:0;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .3s;}
 .play-btn{width:56px;height:56px;border:2px solid var(--cyan);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;}
 .play-btn:hover{background:var(--cyan);}
@@ -206,7 +213,7 @@ footer{position:relative;z-index:1;padding:2rem 5%;border-top:1px solid var(--bo
     <li><a href="#experience">XP</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
-  <a href="mailto:basit123farooq@gmail.com" class="nav-cta">Hire Me</a>
+  <a href="/cdn-cgi/l/email-protection#1173706278652023227770637e7e6051767c70787d3f727e7c" class="nav-cta">Hire Me</a>
 </nav>
 
 <section id="hero" class="hero-react" style="padding:0;min-height:0;">
@@ -390,12 +397,12 @@ footer{position:relative;z-index:1;padding:2rem 5%;border-top:1px solid var(--bo
   <div class="contact-inner fade-in">
     <p class="contact-desc" style="color: rgb(216, 238, 248)">Available for freelance projects, full-time roles, and exciting collaborations. Let's create the next great gaming experience.</p>
     <div class="contact-links">
-      <a href="mailto:basit123farooq@gmail.com" class="contact-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>Email Me</a>
+      <a href="/cdn-cgi/l/email-protection#791b180a100d484b4a1f180b161608391e14181015571a1614" class="contact-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>Email Me</a>
       <a href="https://linkedin.com/in/basit-farooq-855ba171" target="_blank" class="contact-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>LinkedIn</a>
       <a href="https://bit.ly/3V2YX4b" target="_blank" class="contact-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>Portfolio</a>
       <a href="tel:+923132500652" class="contact-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13 19.79 19.79 0 0 1 1.61 4.37 2 2 0 0 1 3.59 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Call Me</a>
     </div>
-    <a href="mailto:basit123farooq@gmail.com" class="btn-primary">Start A Conversation →</a>
+    <a href="/cdn-cgi/l/email-protection#046665776d703536376265766b6b75446369656d682a676b69" class="btn-primary">Start A Conversation →</a>
   </div>
 </section>
 
@@ -411,7 +418,7 @@ footer{position:relative;z-index:1;padding:2rem 5%;border-top:1px solid var(--bo
   </div>
 </div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // PARTICLE BG
 (function(){
   const c=document.getElementById('bg-canvas'),ctx=c.getContext('2d');
@@ -430,6 +437,25 @@ footer{position:relative;z-index:1;padding:2rem 5%;border-top:1px solid var(--bo
 // SCROLL FADE
 const io=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');e.target.querySelectorAll('.bar-fill').forEach(b=>b.style.width=b.dataset.width+'%');}});},{threshold:.12});
 document.querySelectorAll('.fade-in').forEach(el=>io.observe(el));
+
+// VIDEO LOADERS — inject spinner overlay into every .video-wrap and toggle state
+document.querySelectorAll('.video-wrap').forEach(wrap=>{
+  const v=wrap.querySelector('video'); if(!v) return;
+  const loader=document.createElement('div');
+  loader.className='video-loader is-loading';
+  loader.innerHTML='<svg viewBox="0 0 50 50"><circle class="vl-track" cx="25" cy="25" r="20" fill="none" stroke-width="3"/><circle class="vl-arc" cx="25" cy="25" r="20" fill="none" stroke-width="3" stroke-linecap="round"/></svg><div class="video-loader-label">LOADING</div>';
+  wrap.appendChild(loader);
+  const show=()=>loader.classList.add('is-loading');
+  const hide=()=>loader.classList.remove('is-loading');
+  v.addEventListener('loadstart',show);
+  v.addEventListener('waiting',show);
+  v.addEventListener('stalled',show);
+  v.addEventListener('canplay',hide);
+  v.addEventListener('playing',hide);
+  v.addEventListener('loadeddata',hide);
+  v.addEventListener('error',hide);
+  if(v.readyState>=3) hide();
+});
 
 // VIDEO hover
 document.querySelectorAll('.game-card').forEach(card=>{
