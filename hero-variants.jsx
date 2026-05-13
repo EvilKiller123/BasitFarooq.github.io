@@ -6,6 +6,7 @@ const VID = "assets/heroVideo.mp4";
 const HeroVideo = ({ className = "", style = {}, seamless = true }) => {
   const ref = React.useRef(null);
   const [fade, setFade] = React.useState(0);
+  const [loading, setLoading] = React.useState(true);
   React.useEffect(() => {
     if (!seamless) return;
     const v = ref.current; if (!v) return;
@@ -27,10 +28,34 @@ const HeroVideo = ({ className = "", style = {}, seamless = true }) => {
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
   }, [seamless]);
+
+  // Track buffering / loading state across the video element
+  React.useEffect(() => {
+    const v = ref.current; if (!v) return;
+    const start = () => setLoading(true);
+    const stop = () => setLoading(false);
+    v.addEventListener('loadstart', start);
+    v.addEventListener('waiting', start);
+    v.addEventListener('stalled', start);
+    v.addEventListener('canplay', stop);
+    v.addEventListener('playing', stop);
+    v.addEventListener('loadeddata', stop);
+    // If already buffered by the time we mount
+    if (v.readyState >= 3) setLoading(false);
+    return () => {
+      v.removeEventListener('loadstart', start);
+      v.removeEventListener('waiting', start);
+      v.removeEventListener('stalled', start);
+      v.removeEventListener('canplay', stop);
+      v.removeEventListener('playing', stop);
+      v.removeEventListener('loadeddata', stop);
+    };
+  }, []);
+
   return (
     <React.Fragment>
       <video ref={ref} className={className} style={style}
-             src={VID} autoPlay muted loop playsInline/>
+             src={VID} autoPlay muted loop playsInline preload="auto"/>
       {seamless && (
         <div style={{
           position: "absolute", inset: 0, pointerEvents: "none",
@@ -41,6 +66,16 @@ const HeroVideo = ({ className = "", style = {}, seamless = true }) => {
           mixBlendMode: "multiply",
         }}/>
       )}
+      {/* Loader overlay — fades out when the video can play */}
+      <div className={"hero-video-loader" + (loading ? " is-loading" : "")}>
+        <svg className="hero-spinner" viewBox="0 0 50 50" aria-hidden="true">
+          <circle className="hero-spinner-track" cx="25" cy="25" r="20"
+                  fill="none" strokeWidth="2.5"/>
+          <circle className="hero-spinner-arc" cx="25" cy="25" r="20"
+                  fill="none" strokeWidth="2.5" strokeLinecap="round"/>
+        </svg>
+        <div className="hero-loader-label">BUFFERING REEL</div>
+      </div>
     </React.Fragment>
   );
 };

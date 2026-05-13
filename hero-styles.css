@@ -1,3 +1,43 @@
+/* ═══════════════════════════ VIDEO LOADER ═══════════════════════════ */
+.hero-video-loader {
+  position: absolute; inset: 0; z-index: 6;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 14px;
+  background: radial-gradient(circle at center, rgba(4,8,15,0.92), rgba(4,8,15,1) 70%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .35s ease;
+}
+.hero-video-loader.is-loading { opacity: 1; }
+.hero-spinner {
+  width: 64px; height: 64px;
+  animation: hero-spin 1.4s linear infinite;
+  filter: drop-shadow(0 0 16px var(--cyan));
+}
+.hero-spinner-track {
+  stroke: rgba(0, 212, 255, 0.15);
+}
+.hero-spinner-arc {
+  stroke: var(--cyan);
+  stroke-dasharray: 90 200;
+  transform-origin: center;
+}
+@keyframes hero-spin {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+.hero-loader-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--cyan);
+  animation: hero-loader-blink 1.4s ease-in-out infinite;
+}
+@keyframes hero-loader-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+
 /* ═══════════════════════════ BASE ═══════════════════════════ */
 :root {
   --bg: #04080F;
