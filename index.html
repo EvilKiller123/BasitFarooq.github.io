@@ -75,6 +75,22 @@ section{position:relative;z-index:1;padding:6rem 5%;}
 .bar-track{height:4px;background:rgba(255,255,255,0.06);overflow:hidden;}
 .bar-fill{height:100%;width:0%;transition:width 1.2s ease;background:linear-gradient(to right,var(--cyan),var(--orange));}
 
+/* CLIENTS */
+#clients{background:var(--bg2);padding:5rem 0;overflow:hidden;}
+#clients .section-header{padding:0 5%;}
+.clients-marquee-wrap{position:relative;width:100%;margin-top:3rem;}
+.clients-marquee-wrap::before,.clients-marquee-wrap::after{content:'';position:absolute;top:0;bottom:0;width:120px;z-index:2;pointer-events:none;}
+.clients-marquee-wrap::before{left:0;background:linear-gradient(to right,var(--bg2),transparent);}
+.clients-marquee-wrap::after{right:0;background:linear-gradient(to left,var(--bg2),transparent);}
+.clients-track{display:flex;gap:1.5rem;width:max-content;animation:marquee 32s linear infinite;}
+.clients-track:hover{animation-play-state:paused;}
+@keyframes marquee{0%{transform:translateX(0);}100%{transform:translateX(-33.333%);}}
+.client-logo{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;width:190px;height:140px;flex-shrink:0;padding:1.5rem 2rem;border:1px solid var(--border);background:var(--card);transition:border-color .25s,transform .25s;}
+.client-logo:hover{border-color:var(--cyan);transform:translateY(-4px);}
+.client-logo img{width:120px;height:70px;object-fit:contain;}
+.client-logo span{font-family:'Rajdhani',sans-serif;font-size:0.82rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text);transition:color .25s;}
+.client-logo:hover span{color:var(--cyan);}
+
 /* PORTFOLIO */
 #portfolio{background:var(--bg);}
 .filter-tabs{display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:3rem;}
@@ -213,7 +229,7 @@ footer{position:relative;z-index:1;padding:2rem 5%;border-top:1px solid var(--bo
     <li><a href="#experience">XP</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
-  <a href="mailto:basit123farooq@gmail.com" class="nav-cta">Hire Me</a>
+  <a href="mailto:basit123farooq@gmail.com" class="nav-cta">Let's Connect</a>
 </nav>
 
 <section id="hero" class="hero-react" style="padding:0;min-height:0;">
@@ -282,9 +298,40 @@ footer{position:relative;z-index:1;padding:2rem 5%;border-top:1px solid var(--bo
     <div class="game-card" data-category="ai"><div class="video-wrap"><video data-src="Portfolio/Sling_shot_game_Demo_Video.mp4" muted loop preload="metadata"></video><div class="card-overlay"><div class="play-btn" onclick="openModal('Portfolio/Sling_shot_game_Demo_Video.mp4')"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div></div></div><div class="card-body"><div class="card-tags"><span class="card-tag tag-cyan">Interactive</span><span class="card-tag tag-orange">Photo Sync</span></div><div class="card-title">Slingshot Photo Game</div><p class="card-desc" style="color: rgb(216, 238, 248)">Multiplayer slingshot game syncing player photos across Android devices and wall displays in real time.</p></div></div>
     <div class="game-card" data-category="sports"><div class="video-wrap"><video data-src="Portfolio/BikeRacer.mp4" muted loop preload="metadata"></video><div class="card-overlay"><div class="play-btn" onclick="openModal('Portfolio/BikeRacer.mp4')"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div></div></div><div class="card-body"><div class="card-tags"><span class="card-tag tag-orange">Racing</span><span class="card-tag tag-cyan">Mobile</span></div><div class="card-title">Bike Racer</div><p class="card-desc" style="color: rgb(216, 238, 248)">Fast-paced bike racing game with intuitive controls, dynamic tracks, and adrenaline-fueled gameplay on mobile.</p></div></div>
     <div class="game-card" data-category="ai"><div class="video-wrap"><video data-src="Portfolio/Anime_Selfie_Demo_Video.mp4" muted loop preload="metadata"></video><div class="card-overlay"><div class="play-btn" onclick="openModal('Portfolio/Anime_Selfie_Demo_Video.mp4')"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div></div></div><div class="card-body"><div class="card-tags"><span class="card-tag tag-cyan">AI Vision</span><span class="card-tag tag-orange">Fal AI</span><span class="card-tag tag-cyan">Real-time</span></div><div class="card-title">Anime Selfie v2</div><p class="card-desc" style="color: rgb(216, 238, 248)">Updated real-time selfie-to-anime AI transformation running on interactive kiosk hardware with instant results.</p></div></div>
+    <div class="game-card" data-category="ai"><div class="video-wrap"><video data-src="Portfolio/GeminiAIPhotobooth.mp4" muted loop preload="metadata"></video><div class="card-overlay"><div class="play-btn" onclick="openModal('Portfolio/GeminiAIPhotobooth.mp4')"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div></div></div><div class="card-body"><div class="card-tags"><span class="card-tag tag-cyan">Google Client</span><span class="card-tag tag-orange">Gemini AI</span><span class="card-tag tag-cyan">Dual Screen</span></div><div class="card-title">Gemini AI Photobooth</div><p class="card-desc" style="color: rgb(216, 238, 248)">Dual-screen photobooth for Google — one screen for users to apply AI filters, a second operator screen for filter selection and printing, powered by Gemini AI.</p></div></div>
     <div class="game-card" data-category="ai"><div class="video-wrap"><video data-src="Portfolio/Maze sheep Game.mp4" muted loop preload="metadata"></video><div class="card-overlay"><div class="play-btn" onclick="openModal('Portfolio/Maze sheep Game.mp4')"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div></div></div><div class="card-body"><div class="card-tags"><span class="card-tag tag-cyan">WebSockets</span><span class="card-tag tag-orange">Node.js</span><span class="card-tag tag-cyan">Mobile + Wall</span></div><div class="card-title">Maze Sheep Game — Al Rajhi Bank</div><p class="card-desc" style="color: rgb(216, 238, 248)">Eid ul Adha activation for Al Rajhi Bank — players steer a sheep through a maze on mobile and it mirrors live on a giant screen, powered by Node.js and WebSockets.</p></div></div>
     <div class="game-card" data-category="ai"><div class="video-wrap"><video data-src="Portfolio/Qiddiya SheepShot.mp4" muted loop preload="metadata"></video><div class="card-overlay"><div class="play-btn" onclick="openModal('Portfolio/Qiddiya SheepShot.mp4')"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div></div></div><div class="card-body"><div class="card-tags"><span class="card-tag tag-cyan">WebSockets</span><span class="card-tag tag-orange">Wall Display</span><span class="card-tag tag-cyan">Tablet</span></div><div class="card-title">Qiddiya — Sheep Shot</div><p class="card-desc" style="color: rgb(216, 238, 248)">Player takes a photo on a tablet, then slingshots it onto a giant wall display in real time — synced live via WebSockets.</p></div></div>
     <div class="game-card" data-category="ai"><div class="video-wrap"><video data-src="Portfolio/SocialDevelopmentBank.mp4" muted loop preload="metadata"></video><div class="card-overlay"><div class="play-btn" onclick="openModal('Portfolio/SocialDevelopmentBank.mp4')"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div></div></div><div class="card-body"><div class="card-tags"><span class="card-tag tag-cyan">Interactive</span><span class="card-tag tag-orange">Client Work</span><span class="card-tag tag-cyan">Unity</span></div><div class="card-title">Social Development Bank</div><p class="card-desc" style="color: rgb(216, 238, 248)">Interactive experience developed for Social Development Bank, delivering an engaging digital activation built in Unity.</p></div></div>
+  </div>
+</section>
+
+<section id="clients">
+  <div class="section-header fade-in" style="text-align:center;">
+    <div class="section-tag">// 02.5. Trusted By</div>
+    <h2 class="section-title">CLIENTS &amp; <span>PARTNERS</span></h2>
+    <div class="section-line" style="margin:1rem auto 0;"></div>
+  </div>
+  <div class="clients-marquee-wrap fade-in">
+    <div class="clients-track">
+      <div class="client-logo"><img src="clients/google.png" alt="Google"/><span>Google</span></div>
+      <div class="client-logo"><img src="clients/alrajhi.png" alt="Al Rajhi Bank"/><span>Al Rajhi Bank</span></div>
+      <div class="client-logo"><img src="clients/qiddiya.png" alt="Qiddiya"/><span>Qiddiya</span></div>
+      <div class="client-logo"><img src="clients/alqadsiah.png" alt="Al Qadsiah FC"/><span>Al Qadsiah FC</span></div>
+      <div class="client-logo"><img src="clients/socialdevbank.png" alt="Social Development Bank"/><span>Social Development Bank</span></div>
+      <div class="client-logo"><img src="clients/hayala.png" alt="Hayala"/><span>Hayala</span></div>
+      <div class="client-logo"><img src="clients/google.png" alt="Google"/><span>Google</span></div>
+      <div class="client-logo"><img src="clients/alrajhi.png" alt="Al Rajhi Bank"/><span>Al Rajhi Bank</span></div>
+      <div class="client-logo"><img src="clients/qiddiya.png" alt="Qiddiya"/><span>Qiddiya</span></div>
+      <div class="client-logo"><img src="clients/alqadsiah.png" alt="Al Qadsiah FC"/><span>Al Qadsiah FC</span></div>
+      <div class="client-logo"><img src="clients/socialdevbank.png" alt="Social Development Bank"/><span>Social Development Bank</span></div>
+      <div class="client-logo"><img src="clients/hayala.png" alt="Hayala"/><span>Hayala</span></div>
+      <div class="client-logo"><img src="clients/google.png" alt="Google"/><span>Google</span></div>
+      <div class="client-logo"><img src="clients/alrajhi.png" alt="Al Rajhi Bank"/><span>Al Rajhi Bank</span></div>
+      <div class="client-logo"><img src="clients/qiddiya.png" alt="Qiddiya"/><span>Qiddiya</span></div>
+      <div class="client-logo"><img src="clients/alqadsiah.png" alt="Al Qadsiah FC"/><span>Al Qadsiah FC</span></div>
+      <div class="client-logo"><img src="clients/socialdevbank.png" alt="Social Development Bank"/><span>Social Development Bank</span></div>
+      <div class="client-logo"><img src="clients/hayala.png" alt="Hayala"/><span>Hayala</span></div>
+    </div>
   </div>
 </section>
 
@@ -412,7 +459,7 @@ footer{position:relative;z-index:1;padding:2rem 5%;border-top:1px solid var(--bo
 </section>
 
 <footer>
-  <span>© 2025 Abdul Basit Farooq · Senior Game Developer</span>
+  <span>© 2026 Abdul Basit Farooq · Senior Game Developer</span>
   <span style="font-family:'Space Mono',monospace;font-size:0.7rem;color:var(--cyan);">// crafted with precision</span>
 </footer>
 
