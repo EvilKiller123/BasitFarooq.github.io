@@ -116,7 +116,7 @@ section{position:relative;z-index:1;padding:6rem 5%;}
 /* PUBLISHED GAMES */
 #published{background:var(--bg2);}
 .published-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.5rem;}
-.pub-card{background:var(--card);border:1px solid var(--border);padding:1.8rem;transition:all .3s;position:relative;overflow:hidden;}
+.pub-card{background:var(--card);border:1px solid var(--border);padding:1.8rem;transition:all .3s;position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:flex-start;}
 .pub-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(to right,var(--green),var(--cyan));}
 .pub-card:hover{border-color:var(--green);transform:translateY(-4px);}
 .pub-store-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;background:rgba(0,255,136,0.08);border:1px solid rgba(0,255,136,0.25);color:var(--green);font-family:'Space Mono',monospace;font-size:0.68rem;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:1rem;}
@@ -136,7 +136,7 @@ section{position:relative;z-index:1;padding:6rem 5%;}
 @media (prefers-reduced-motion:reduce){.pub-icon::before,.pub-icon::after,.pub-icon img{animation:none;}}
 .pub-title{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:2px;color:#fff;margin-bottom:0.5rem;}
 .pub-desc{font-size:0.85rem;color:var(--muted);line-height:1.7;margin-bottom:1.2rem;}
-.pub-tags{display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:1.4rem;}
+.pub-tags{display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:1.4rem;margin-top:auto;}
 .pub-tag{padding:3px 10px;border:1px solid rgba(0,255,136,0.2);color:var(--green);font-family:'Space Mono',monospace;font-size:0.62rem;letter-spacing:1px;text-transform:uppercase;background:var(--green-dim);}
 .pub-link{display:inline-flex;align-items:center;gap:8px;padding:10px 22px;background:var(--green);color:var(--bg);font-family:'Rajdhani',sans-serif;font-weight:700;font-size:0.85rem;letter-spacing:2px;text-transform:uppercase;text-decoration:none;transition:all .2s;}
 .pub-link:hover{background:#00cc6e;}
