@@ -1,0 +1,134 @@
+<!doctype html>
+<html
+  lang="en"
+  data-composition-variables='[
+    {"id":"projectNo","type":"string","label":"Project number","default":"07"},
+    {"id":"category","type":"string","label":"Category","default":"AI &amp; INTERACTIVE"},
+    {"id":"title","type":"string","label":"Title","default":"AI Photo Booth"},
+    {"id":"tags","type":"string","label":"Tags","default":"UNITY · CANON SDK · GEMINI VEO"}
+  ]'
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+    <style>
+      :root {
+        --ground: #04080f;
+        --cyan: #00d4ff;
+        --orange: #ff6b35;
+        --ink: #ffffff;
+        --muted: #8aa4b8;
+        --font-display: "League Gothic", "Oswald", sans-serif;
+        --font-mono: "Space Mono", monospace;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1920px; height: 1080px; overflow: hidden; background: var(--ground); }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; background: var(--ground); }
+
+      #grid {
+        position: absolute; inset: -80px;
+        background-image:
+          linear-gradient(rgba(0, 212, 255, 0.07) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(0, 212, 255, 0.07) 1px, transparent 1px);
+        background-size: 80px 80px;
+      }
+      #glow {
+        position: absolute; inset: 0;
+        background:
+          radial-gradient(900px 520px at 30% 55%, rgba(0, 212, 255, 0.18), transparent 70%),
+          radial-gradient(700px 420px at 85% 80%, rgba(255, 107, 53, 0.14), transparent 70%);
+      }
+      #vignette { position: absolute; inset: 0; background: radial-gradient(ellipse at center, transparent 45%, rgba(0,0,0,0.75) 100%); }
+
+      .corner { position: absolute; width: 90px; height: 90px; border-color: var(--cyan); border-style: solid; border-width: 0; }
+      #c-tl { left: 96px; top: 96px; border-left-width: 3px; border-top-width: 3px; }
+      #c-tr { right: 96px; top: 96px; border-right-width: 3px; border-top-width: 3px; }
+      #c-bl { left: 96px; bottom: 96px; border-left-width: 3px; border-bottom-width: 3px; }
+      #c-br { right: 96px; bottom: 96px; border-right-width: 3px; border-bottom-width: 3px; }
+
+      #content { position: absolute; left: 200px; right: 200px; top: 300px; }
+      #meta { font-family: var(--font-mono); font-size: 26px; letter-spacing: 6px; color: var(--cyan); text-transform: uppercase; white-space: nowrap; }
+      #meta .dim { color: var(--muted); }
+      #title-mask { overflow: hidden; margin: -22px 0 -32px -40px; padding: 40px 80px 40px 40px; position: relative; }
+      #title {
+        font-family: var(--font-display); font-size: 220px; line-height: 0.95; color: var(--ink);
+        text-transform: uppercase; letter-spacing: 4px; white-space: nowrap;
+        text-shadow: 0 0 40px rgba(0, 212, 255, 0.35);
+      }
+      #sweep {
+        position: absolute; top: 0; bottom: 0; left: 0; width: 260px;
+        background: linear-gradient(100deg, transparent, rgba(255,255,255,0.55), transparent);
+        mix-blend-mode: overlay;
+      }
+      #bar { height: 8px; width: 620px; margin-top: 26px; background: linear-gradient(90deg, var(--cyan), var(--orange)); transform-origin: left center; box-shadow: 0 0 24px rgba(0, 212, 255, 0.6); }
+      #row { display: flex; gap: 40px; align-items: center; margin-top: 40px; font-family: var(--font-mono); font-size: 28px; letter-spacing: 5px; text-transform: uppercase; }
+      #category { color: var(--orange); border: 2px solid rgba(255, 107, 53, 0.55); padding: 10px 22px; background: rgba(255, 107, 53, 0.1); }
+      #tags { color: var(--ink); opacity: 0.85; }
+
+      #brand { position: absolute; right: 200px; bottom: 150px; text-align: right; font-family: var(--font-mono); color: var(--muted); font-size: 28px; letter-spacing: 6px; }
+      #brand b { display: block; font-family: var(--font-display); font-weight: 400; color: var(--ink); font-size: 56px; letter-spacing: 8px; }
+
+      .dot { position: absolute; width: 6px; height: 6px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 12px var(--cyan); }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="3.4" data-width="1920" data-height="1080">
+      <div id="bg" class="clip" data-start="0" data-duration="3.4" data-track-index="0" data-layout-allow-overflow>
+        <div id="grid"></div>
+        <div id="glow"></div>
+        <div class="dot" id="d1" style="left: 1420px; top: 240px"></div>
+        <div class="dot" id="d2" style="left: 1610px; top: 420px"></div>
+        <div class="dot" id="d3" style="left: 1280px; top: 760px"></div>
+        <div class="dot" id="d4" style="left: 260px; top: 860px"></div>
+        <div class="dot" id="d5" style="left: 1760px; top: 640px"></div>
+        <div id="vignette"></div>
+      </div>
+
+      <div id="hud" class="clip" data-start="0" data-duration="3.4" data-track-index="1">
+        <div class="corner" id="c-tl"></div>
+        <div class="corner" id="c-tr"></div>
+        <div class="corner" id="c-bl"></div>
+        <div class="corner" id="c-br"></div>
+      </div>
+
+      <div id="content" class="clip" data-start="0" data-duration="3.4" data-track-index="2">
+        <div id="meta">// PROJECT <span data-var-text="projectNo">07</span> <span class="dim">— BASIT FAROOQ PORTFOLIO</span></div>
+        <div id="title-mask">
+          <h1 id="title" data-var-text="title">AI Photo Booth</h1>
+          <div id="sweep"></div>
+        </div>
+        <div id="bar"></div>
+        <div id="row">
+          <span id="category" data-var-text="category">AI &amp; INTERACTIVE</span>
+          <span id="tags" data-var-text="tags">UNITY · CANON SDK · GEMINI VEO</span>
+        </div>
+      </div>
+
+      <div id="brand" class="clip" data-start="0" data-duration="3.4" data-track-index="3">
+        <b>BASIT FAROOQ</b>UNITY GAME DEVELOPER
+      </div>
+
+      <audio id="sfx-whoosh" src="assets/whoosh.wav" data-start="0" data-duration="1.2" data-track-index="4"></audio>
+      <audio id="sfx-impact" src="assets/impact.wav" data-start="0.5" data-duration="1.2" data-track-index="5"></audio>
+    </div>
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      tl.fromTo("#grid", { scale: 1.12, opacity: 0 }, { scale: 1, opacity: 1, duration: 3.4, ease: "power2.out" }, 0);
+      tl.fromTo("#glow", { opacity: 0 }, { opacity: 1, duration: 0.8, ease: "power2.out" }, 0);
+      ["#d1", "#d2", "#d3", "#d4", "#d5"].forEach((d, i) => {
+        tl.fromTo(d, { opacity: 0, y: 30 + i * 8 }, { opacity: 0.8, y: -40 - i * 10, duration: 3.2, ease: "none" }, 0.1 + i * 0.05);
+      });
+      tl.fromTo(".corner", { scale: 0, opacity: 0 }, { scale: 1, opacity: 0.9, duration: 0.5, ease: "back.out(2)", stagger: 0.06 }, 0.1);
+      tl.fromTo("#meta", { clipPath: "inset(0 100% 0 0)" }, { clipPath: "inset(0 0% 0 0)", duration: 0.5, ease: "power3.out" }, 0.2);
+      tl.fromTo("#title", { yPercent: 105 }, { yPercent: 0, duration: 0.65, ease: "power4.out" }, 0.42);
+      tl.fromTo("#title", { scale: 1 }, { scale: 1.035, duration: 2.3, ease: "none", transformOrigin: "left center" }, 1.07);
+      tl.fromTo("#bar", { scaleX: 0 }, { scaleX: 1, duration: 0.55, ease: "expo.out" }, 0.7);
+      tl.fromTo("#category", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.4, ease: "power3.out" }, 0.85);
+      tl.fromTo("#tags", { opacity: 0, x: -30 }, { opacity: 0.85, x: 0, duration: 0.4, ease: "power3.out" }, 0.95);
+      tl.fromTo("#sweep", { x: -300, opacity: 1 }, { x: 1700, duration: 0.9, ease: "power2.inOut" }, 1.0);
+      tl.fromTo("#brand", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 1.1);
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

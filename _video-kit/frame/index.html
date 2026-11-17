@@ -1,0 +1,171 @@
+<!doctype html>
+<html
+  lang="en"
+  data-composition-variables='[
+    {"id":"layout","type":"string","label":"Layout (portrait|landscape)","default":"portrait"},
+    {"id":"fgw","type":"number","label":"Footage width px (portrait)","default":608},
+    {"id":"projectNo","type":"string","label":"Project number","default":"07"},
+    {"id":"title","type":"string","label":"Title","default":"Sketch AI"},
+    {"id":"category","type":"string","label":"Category","default":"AI &amp; INTERACTIVE"},
+    {"id":"tag1","type":"string","label":"Tag 1","default":"UNITY"},
+    {"id":"tag2","type":"string","label":"Tag 2","default":"GENERATIVE AI"},
+    {"id":"tag3","type":"string","label":"Tag 3","default":"KIOSK"}
+  ]'
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+    <style>
+      :root {
+        --cyan: #00d4ff;
+        --orange: #ff6b35;
+        --ink: #ffffff;
+        --muted: #9fb6c8;
+        --font-display: "League Gothic", "Oswald", sans-serif;
+        --font-mono: "Space Mono", monospace;
+        --fgw: 608px;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1920px; height: 1080px; overflow: hidden; background: transparent; }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; background: transparent; }
+
+      /* faint drifting diagonal watermark across the whole frame */
+      #wm { position: absolute; inset: 0; overflow: hidden; }
+      #wm-tile {
+        position: absolute; left: -1200px; top: -900px; width: 4400px; height: 3000px;
+        transform: rotate(-24deg);
+        display: grid; grid-template-columns: repeat(8, 550px); grid-auto-rows: 260px;
+        font-family: var(--font-display); font-size: 64px; letter-spacing: 10px; color: #fff; opacity: 0.06;
+      }
+      #wm-tile span { white-space: nowrap; }
+
+      #scan { position: absolute; left: 0; right: 0; top: 0; height: 140px;
+        background: linear-gradient(180deg, transparent, rgba(0, 212, 255, 0.10), transparent); }
+
+      .corner { position: absolute; width: 60px; height: 60px; border: 0 solid var(--cyan); opacity: 0.85; }
+
+      /* top-left watermark chip */
+      #chip { position: absolute; left: 70px; top: 56px; display: flex; align-items: center; gap: 14px;
+        font-family: var(--font-mono); font-size: 28px; letter-spacing: 4px; color: var(--ink);
+        background: rgba(4, 8, 15, 0.55); border: 1px solid rgba(0, 212, 255, 0.45); padding: 10px 20px; }
+      #rec { width: 14px; height: 14px; border-radius: 50%; background: var(--orange); box-shadow: 0 0 12px var(--orange); }
+      #chip .sep { color: var(--cyan); }
+
+      /* bottom-right brand watermark */
+      #brand { position: absolute; right: 70px; bottom: 56px; display: flex; align-items: center; gap: 18px; opacity: 0.8; }
+      #bf { width: 78px; height: 78px; border-radius: 50%; border: 3px solid var(--cyan); display: flex; align-items: center; justify-content: center;
+        font-family: var(--font-display); font-size: 46px; color: #fff; box-shadow: 0 0 18px rgba(0, 212, 255, 0.55); padding-top: 3px; }
+      #brand-text { font-family: var(--font-mono); color: #fff; font-size: 28px; letter-spacing: 3px; line-height: 1.25; text-shadow: 0 2px 8px rgba(0,0,0,0.9); }
+      #brand-text b { font-family: var(--font-display); font-weight: 400; font-size: 40px; letter-spacing: 6px; display: block; }
+
+      /* portrait side panels */
+      .panel { position: absolute; top: 150px; bottom: 170px; width: 560px; }
+      #left { left: 70px; display: flex; flex-direction: column; justify-content: center; }
+      #right { right: 70px; display: flex; flex-direction: column; justify-content: center; align-items: flex-end; text-align: right; }
+      #p-no { font-family: var(--font-mono); font-size: 28px; letter-spacing: 6px; color: var(--cyan); }
+      #p-title { font-family: var(--font-display); font-size: 128px; line-height: 0.95; color: #fff; text-transform: uppercase; letter-spacing: 3px; margin-top: 14px;
+        text-shadow: 0 0 30px rgba(0, 212, 255, 0.4), 0 4px 18px rgba(0,0,0,0.8); }
+      #p-bar { width: 260px; height: 6px; margin: 26px 0; background: linear-gradient(90deg, var(--cyan), var(--orange)); }
+      #p-cat { align-self: flex-start; font-family: var(--font-mono); font-size: 28px; letter-spacing: 4px; color: var(--orange);
+        border: 2px solid rgba(255, 107, 53, 0.6); background: rgba(255, 107, 53, 0.12); padding: 8px 18px; }
+      .p-tag { font-family: var(--font-mono); font-size: 30px; letter-spacing: 4px; color: #fff; margin-top: 18px; }
+      .p-tag::before { content: "▸ "; color: var(--cyan); }
+
+      #eq { display: flex; gap: 10px; align-items: flex-end; height: 120px; }
+      .eqb { width: 16px; height: 120px; background: linear-gradient(0deg, var(--cyan), var(--orange)); transform-origin: bottom center; opacity: 0.85; }
+      #r-label { font-family: var(--font-mono); font-size: 28px; letter-spacing: 6px; color: var(--cyan); margin-top: 28px; }
+      #r-big { font-family: var(--font-display); font-size: 92px; color: #fff; letter-spacing: 4px; line-height: 1; margin-top: 10px; text-shadow: 0 4px 18px rgba(0,0,0,0.8); }
+      #r-sub { font-family: var(--font-mono); font-size: 28px; letter-spacing: 3px; color: var(--muted); margin-top: 14px; }
+      #ring { width: 150px; height: 150px; border-radius: 50%; border: 3px dashed rgba(0, 212, 255, 0.7); margin-bottom: 40px; position: relative; }
+      #ring-in { position: absolute; inset: 22px; border-radius: 50%; border: 2px solid rgba(255, 107, 53, 0.8); }
+
+      #fgframe { position: absolute; top: 0; bottom: 0; left: 656px; width: 608px;
+        box-shadow: 0 0 0 2px rgba(0, 212, 255, 0.55), 0 0 40px rgba(0, 212, 255, 0.35); }
+
+      .landscape .portrait-only { display: none; }
+      .landscape #brand { top: 56px; bottom: auto; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="4" data-width="1920" data-height="1080">
+      <div id="wm" class="clip" data-start="0" data-duration="4" data-track-index="0" data-layout-allow-overflow data-layout-ignore>
+        <div id="wm-tile">
+          <span>© BASIT FAROOQ</span><span>© BASIT FAROOQ</span><span>© BASIT FAROOQ</span><span>© BASIT FAROOQ</span><span>© BASIT FAROOQ</span><span>© BASIT FAROOQ</span><span>© BASIT FAROOQ</span><span>© BASIT FAROOQ</span>
+          <span>© BASIT FAROOQ</span><span>© BASIT FAROOQ</span><span>© BASIT FAROOQ</span><span>© BASIT FAROOQ</span><span>© BASIT FAROOQ</span><span>© BASIT FAROOQ</span><span>© BASIT FAROOQ</span><span>© BASIT FAROOQ</span>
+          <span>© BASIT FAROOQ</span><span>© BASIT FAROOQ</span><span>© BASIT FAROOQ</span><span>© BASIT FAROOQ</span><span>© BASIT FAROOQ</span><span>© BASIT FAROOQ</span><span>© BASIT FAROOQ</span><span>© BASIT FAROOQ</span>
+          <span>© BASIT FAROOQ</span><span>© BASIT FAROOQ</span><span>© BASIT FAROOQ</span><span>© BASIT FAROOQ</span><span>© BASIT FAROOQ</span><span>© BASIT FAROOQ</span><span>© BASIT FAROOQ</span><span>© BASIT FAROOQ</span>
+          <span>© BASIT FAROOQ</span><span>© BASIT FAROOQ</span><span>© BASIT FAROOQ</span><span>© BASIT FAROOQ</span><span>© BASIT FAROOQ</span><span>© BASIT FAROOQ</span><span>© BASIT FAROOQ</span><span>© BASIT FAROOQ</span>
+          <span>© BASIT FAROOQ</span><span>© BASIT FAROOQ</span><span>© BASIT FAROOQ</span><span>© BASIT FAROOQ</span><span>© BASIT FAROOQ</span><span>© BASIT FAROOQ</span><span>© BASIT FAROOQ</span><span>© BASIT FAROOQ</span>
+          <span>© BASIT FAROOQ</span><span>© BASIT FAROOQ</span><span>© BASIT FAROOQ</span><span>© BASIT FAROOQ</span><span>© BASIT FAROOQ</span><span>© BASIT FAROOQ</span><span>© BASIT FAROOQ</span><span>© BASIT FAROOQ</span>
+          <span>© BASIT FAROOQ</span><span>© BASIT FAROOQ</span><span>© BASIT FAROOQ</span><span>© BASIT FAROOQ</span><span>© BASIT FAROOQ</span><span>© BASIT FAROOQ</span><span>© BASIT FAROOQ</span><span>© BASIT FAROOQ</span>
+          <span>© BASIT FAROOQ</span><span>© BASIT FAROOQ</span><span>© BASIT FAROOQ</span><span>© BASIT FAROOQ</span><span>© BASIT FAROOQ</span><span>© BASIT FAROOQ</span><span>© BASIT FAROOQ</span><span>© BASIT FAROOQ</span>
+          <span>© BASIT FAROOQ</span><span>© BASIT FAROOQ</span><span>© BASIT FAROOQ</span><span>© BASIT FAROOQ</span><span>© BASIT FAROOQ</span><span>© BASIT FAROOQ</span><span>© BASIT FAROOQ</span><span>© BASIT FAROOQ</span>
+          <span>© BASIT FAROOQ</span><span>© BASIT FAROOQ</span><span>© BASIT FAROOQ</span><span>© BASIT FAROOQ</span><span>© BASIT FAROOQ</span><span>© BASIT FAROOQ</span><span>© BASIT FAROOQ</span><span>© BASIT FAROOQ</span>
+          <span>© BASIT FAROOQ</span><span>© BASIT FAROOQ</span><span>© BASIT FAROOQ</span><span>© BASIT FAROOQ</span><span>© BASIT FAROOQ</span><span>© BASIT FAROOQ</span><span>© BASIT FAROOQ</span><span>© BASIT FAROOQ</span>
+        </div>
+        <div id="scan"></div>
+      </div>
+
+      <div id="hud" class="clip" data-start="0" data-duration="4" data-track-index="1" data-layout-allow-overlap>
+        <div id="fgframe" class="portrait-only"></div>
+        <div class="corner" id="c-tl" style="left: 40px; top: 40px; border-left-width: 3px; border-top-width: 3px"></div>
+        <div class="corner" id="c-tr" style="right: 40px; top: 40px; border-right-width: 3px; border-top-width: 3px"></div>
+        <div class="corner" id="c-bl" style="left: 40px; bottom: 40px; border-left-width: 3px; border-bottom-width: 3px"></div>
+        <div class="corner" id="c-br" style="right: 40px; bottom: 40px; border-right-width: 3px; border-bottom-width: 3px"></div>
+        <div id="chip"><div id="rec"></div>BASIT FAROOQ <span class="sep">//</span> <span data-var-text="title">Sketch AI</span></div>
+        <div id="brand">
+          <div id="bf">BF</div>
+          <div id="brand-text"><b>BASIT FAROOQ</b>basitfarooq.github.io</div>
+        </div>
+      </div>
+
+      <div id="panels" class="clip portrait-only" data-start="0" data-duration="4" data-track-index="2">
+        <div class="panel" id="left">
+          <div id="p-no">// PROJECT <span data-var-text="projectNo">07</span></div>
+          <div id="p-title" data-var-text="title">Sketch AI</div>
+          <div id="p-bar"></div>
+          <div id="p-cat" data-var-text="category">AI &amp; INTERACTIVE</div>
+          <div class="p-tag" data-var-text="tag1">UNITY</div>
+          <div class="p-tag" data-var-text="tag2">GENERATIVE AI</div>
+          <div class="p-tag" data-var-text="tag3">KIOSK</div>
+        </div>
+        <div class="panel" id="right">
+          <div id="ring"><div id="ring-in"></div></div>
+          <div id="eq">
+            <div class="eqb" id="e1"></div><div class="eqb" id="e2"></div><div class="eqb" id="e3"></div><div class="eqb" id="e4"></div><div class="eqb" id="e5"></div><div class="eqb" id="e6"></div><div class="eqb" id="e7"></div>
+          </div>
+          <div id="r-label">● LIVE BUILD</div>
+          <div id="r-big">REAL DEMO</div>
+          <div id="r-sub">CAPTURED ON-SITE</div>
+        </div>
+      </div>
+    </div>
+    <script>
+      const vars = (window.__hyperframes && window.__hyperframes.getVariables && window.__hyperframes.getVariables()) || {};
+      const layout = vars.layout || "portrait";
+      if (layout !== "portrait") document.getElementById("root").classList.add("landscape");
+      const fgw = Number(vars.fgw) || 608;
+      const fr = document.getElementById("fgframe");
+      fr.style.left = (960 - fgw / 2) + "px";
+      fr.style.width = fgw + "px";
+      ["tag1", "tag2", "tag3"].forEach((k, i) => {
+        if (k in vars && !vars[k]) document.querySelectorAll(".p-tag")[i].style.opacity = "0";
+      });
+
+      // Everything below repeats exactly every 4 s, so the overlay loops seamlessly.
+      const tl = gsap.timeline({ paused: true });
+      tl.fromTo("#wm-tile", { x: 0, y: 0 }, { x: 550, y: 0, duration: 4, ease: "none" }, 0);
+      tl.fromTo("#scan", { y: -160 }, { y: 1100, duration: 4, ease: "none" }, 0);
+      tl.fromTo("#rec", { opacity: 1 }, { opacity: 0.15, duration: 0.5, ease: "sine.inOut", yoyo: true, repeat: 7 }, 0);
+      tl.fromTo("#ring", { rotation: 0 }, { rotation: 90, duration: 4, ease: "none" }, 0);
+      tl.fromTo("#ring-in", { rotation: 0 }, { rotation: -180, duration: 4, ease: "none" }, 0);
+      const eq = [[0.25, 1, 0.5], [0.6, 0.2, 0.25], [0.35, 0.9, 1], [0.8, 0.3, 0.5], [0.2, 0.7, 0.25], [0.5, 1, 0.5], [0.3, 0.6, 1]];
+      eq.forEach(([lo, hi, half], i) => {
+        tl.fromTo("#e" + (i + 1), { scaleY: lo }, { scaleY: hi, duration: half, ease: "sine.inOut", yoyo: true, repeat: Math.round(4 / half) - 1 }, 0);
+      });
+      tl.fromTo(".corner", { opacity: 0.85 }, { opacity: 0.4, duration: 1, ease: "sine.inOut", yoyo: true, repeat: 3 }, 0);
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>
