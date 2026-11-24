@@ -142,6 +142,33 @@ section{position:relative;z-index:1;padding:6rem 5%;}
 .pub-link:hover{background:#00cc6e;}
 .pub-link svg{width:16px;height:16px;}
 
+/* UNITY ASSET STORE */
+#asset-store{background:var(--bg);padding-bottom:2rem;}
+#asset-store + #ai-gallery{padding-top:3rem;}
+.asset-card{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);align-items:center;background:var(--card);border:1px solid var(--border);position:relative;overflow:hidden;transition:border-color .3s,transform .3s;}
+.asset-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;z-index:2;background:linear-gradient(to right,var(--cyan),var(--orange));}
+.asset-card:hover{border-color:var(--cyan);transform:translateY(-4px);}
+.asset-media{position:relative;display:block;overflow:hidden;aspect-ratio:3/2;background:#0A1222;}
+.asset-media img{display:block;width:100%;height:100%;object-fit:contain;transition:transform .6s ease;}
+.asset-card:hover .asset-media img{transform:scale(1.03);}
+.asset-body{padding:2.2rem 2.2rem 2rem;display:flex;flex-direction:column;align-items:flex-start;}
+.asset-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;background:var(--cyan-dim);border:1px solid var(--border);color:var(--cyan);font-family:'Space Mono',monospace;font-size:.68rem;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:1rem;}
+.asset-badge svg{width:14px;height:14px;}
+.asset-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.8rem,3vw,2.4rem);letter-spacing:2px;color:#fff;line-height:1;margin-bottom:.3rem;}
+.asset-pub{font-family:'Space Mono',monospace;font-size:.7rem;color:var(--muted);letter-spacing:1px;margin-bottom:1rem;}
+.asset-desc{font-size:.95rem;color:var(--text);line-height:1.7;margin-bottom:1.2rem;}
+.asset-feats{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:.5rem 1.2rem;margin-bottom:1.4rem;width:100%;}
+.asset-feats li{font-size:.88rem;color:var(--text);padding-left:1.1rem;position:relative;}
+.asset-feats li::before{content:'▹';position:absolute;left:0;color:var(--cyan);}
+.asset-specs{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:1.6rem;}
+.asset-spec{padding:3px 10px;border:1px solid var(--border);color:var(--cyan);font-family:'Space Mono',monospace;font-size:.62rem;letter-spacing:1px;text-transform:uppercase;background:var(--cyan-dim);}
+.asset-cta{display:flex;align-items:center;gap:1.2rem;flex-wrap:wrap;margin-top:auto;}
+.asset-link{display:inline-flex;align-items:center;gap:8px;padding:12px 26px;background:var(--cyan);color:var(--bg);font-family:'Rajdhani',sans-serif;font-weight:700;font-size:.85rem;letter-spacing:2px;text-transform:uppercase;text-decoration:none;transition:filter .2s,transform .2s;}
+.asset-link:hover{filter:brightness(1.15);transform:translateX(3px);}
+.asset-link svg{width:16px;height:16px;}
+@media(max-width:1100px){.asset-card{grid-template-columns:1fr;}.asset-body{padding:1.6rem;}}
+@media(max-width:600px){.asset-feats{grid-template-columns:1fr;}}
+
 /* AI GALLERY */
 #ai-gallery{background:var(--bg);}
 .gemini-badge{display:inline-flex;align-items:center;gap:14px;padding:14px 28px;background:linear-gradient(135deg,rgba(138,43,226,0.18),rgba(0,212,255,0.12));border:1px solid rgba(138,43,226,0.45);margin-bottom:2rem;position:relative;overflow:hidden;}
@@ -359,6 +386,7 @@ html.is-booting,html.is-booting body{overflow:hidden;}
     <li><a href="#about">About</a></li>
     <li><a href="#portfolio">Portfolio</a></li>
     <li><a href="#published">Games</a></li>
+    <li><a href="#asset-store">Assets</a></li>
     <li><a href="#ai-gallery">AI Lab</a></li>
     <li><a href="#experience">XP</a></li>
     <li><a href="#contact">Contact</a></li>
@@ -456,9 +484,38 @@ html.is-booting,html.is-booting body{overflow:hidden;}
   </div>
 </section>
 
+<section id="asset-store">
+  <div class="section-header fade-in">
+    <div class="section-tag">// 04. Unity Asset Store</div>
+    <h2 class="section-title">TOOLS FOR <span>DEVELOPERS</span></h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="asset-card fade-in">
+    <a class="asset-media" href="https://assetstore.unity.com/packages/tools/integration/ai-photobooth-dslr-camera-416382" target="_blank" rel="noopener" aria-label="AI Photobooth DSLR Camera on the Unity Asset Store">
+      <img src="https://assetstorev1-prd-cdn.unity3d.com/key-image/57c92bd2-fc4e-4d1e-b427-12c63aeca1f7.webp" alt="AI Photobooth DSLR Camera cover image" loading="lazy"/>
+    </a>
+    <div class="asset-body">
+      <div class="asset-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 2 21 7v10l-9 5-9-5V7z"/><path d="M12 12 21 7M12 12v10M12 12 3 7"/></svg>Unity Asset Store</div>
+      <div class="asset-title">AI Photobooth DSLR Camera</div>
+      <div class="asset-pub">by Games Hell Studios · v1.0 · Tools / Integration</div>
+      <p class="asset-desc">A ready-to-use Unity toolkit for building AI photo booths: shoot with a Canon DSLR or a webcam, restyle each shot with Gemini AI filters, then show it in a gallery and print it. It's the same setup I use for live event activations, now packaged for other developers.</p>
+      <ul class="asset-feats">
+        <li>Canon DSLR &amp; webcam capture</li>
+        <li>Gemini / Nano Banana AI filters</li>
+        <li>Photo gallery &amp; printing</li>
+        <li>Editor tools &amp; ready-made UI</li>
+      </ul>
+      <div class="asset-specs"><span class="asset-spec">Unity 6</span><span class="asset-spec">Built-in</span><span class="asset-spec">URP</span><span class="asset-spec">HDRP</span></div>
+      <div class="asset-cta">
+        <a href="https://assetstore.unity.com/packages/tools/integration/ai-photobooth-dslr-camera-416382" target="_blank" rel="noopener" class="asset-link">View on Asset Store<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section id="ai-gallery">
   <div class="section-header fade-in">
-    <div class="section-tag">// 04. AI Creative Lab</div>
+    <div class="section-tag">// 05. AI Creative Lab</div>
     <h2 class="section-title">POWERED BY <span>GEMINI</span></h2>
     <div class="section-line"></div>
   </div>
@@ -508,7 +565,7 @@ html.is-booting,html.is-booting body{overflow:hidden;}
 
 <section id="experience">
   <div class="section-header fade-in">
-    <div class="section-tag">// 05. Experience</div>
+    <div class="section-tag">// 06. Experience</div>
     <h2 class="section-title">CAREER <span>TIMELINE</span></h2>
     <div class="section-line"></div>
   </div>
@@ -522,7 +579,7 @@ html.is-booting,html.is-booting body{overflow:hidden;}
 
 <section id="stack">
   <div class="section-header fade-in">
-    <div class="section-tag">// 06. Tech Stack</div>
+    <div class="section-tag">// 07. Tech Stack</div>
     <h2 class="section-title">TOOLS &amp; <span>TECHNOLOGIES</span></h2>
     <div class="section-line"></div>
   </div>
@@ -548,7 +605,7 @@ html.is-booting,html.is-booting body{overflow:hidden;}
 
 <section id="contact">
   <div class="section-header fade-in" style="text-align:center;">
-    <div class="section-tag">// 07. Contact</div>
+    <div class="section-tag">// 08. Contact</div>
     <h2 class="section-title">LET'S <span>BUILD</span> TOGETHER</h2>
     <div class="section-line" style="margin:1rem auto 0;"></div>
   </div>
