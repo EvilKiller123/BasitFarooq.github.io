@@ -1,0 +1,14 @@
+# Files Cloudflare Workers should NOT upload as static assets.
+# Workers rejects any single asset over 25 MiB.
+
+# Raw source videos (the site uses the compressed copies in Portfolio/branded/)
+Portfolio/Anime_Selfie_Demo_Video.mp4
+Portfolio/BikeRacer.mp4
+Portfolio/Sling_shot_game_Demo_Video.mp4
+Portfolio/Sketch AI Demo Video.mp4
+Portfolio/StoryNameAI.mp4
+
+# Tooling / local-only folders
+.claude
+_video-kit
+.assetsignore
