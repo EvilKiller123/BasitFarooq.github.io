@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /Hero.html
+Disallow: /basit_portfolio1.html
+
+Sitemap: https://basitfarooq.com/sitemap.xml
